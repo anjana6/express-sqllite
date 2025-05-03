@@ -10,10 +10,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createUser = exports.fetchUsers = void 0;
+const connect_1 = require("../../db/sqlite/connect");
+const ApplicationError_1 = require("../../utils/ApplicationError");
 const fetchUsers = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('aaaaaaaaaaaaaaaaa');
     const user = { name: 'anjana' };
-    return user;
+    const sql = `SELECT * FROM keys`;
+    const keys = [];
+    connect_1.dbLite.all(sql, [], (err, rows) => {
+        if (err) {
+            throw new ApplicationError_1.ApplicationError(err.message, 500);
+        }
+        rows.forEach((row) => {
+            keys.push({ id: row.id, key: row.key });
+        });
+    });
+    return keys;
 });
 exports.fetchUsers = fetchUsers;
 const createUser = (user) => {

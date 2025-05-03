@@ -8,7 +8,7 @@ const dbLite = new sql3.Database('./src/db/sqlite/key.db', sql3.OPEN_READWRITE, 
     console.log('Connected to the SQLite database.')
 })
 
-const sql = `CREATE TABLE IF NOT EXISTS users (
+const sql = `CREATE TABLE IF NOT EXISTS keys (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     key TEXT NOT NULL
 )`;
