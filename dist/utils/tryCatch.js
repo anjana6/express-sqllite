@@ -15,6 +15,7 @@ const tryCatch = (controller) => (req, res, next) => __awaiter(void 0, void 0, v
         yield controller(req, res);
     }
     catch (error) {
+        console.log('error', error);
         next(error);
     }
 });

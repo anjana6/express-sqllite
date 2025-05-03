@@ -1,6 +1,7 @@
 import express from 'express'
 import ApiRoute from './routes/index.routes'
 import errorHandler from './middleware/errorHandler'
+import  './db/sqlite/connect'
 
 const PORT = 5000
 

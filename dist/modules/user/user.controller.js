@@ -35,16 +35,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handleCreateUser = exports.handleFetchUsers = void 0;
 const tryCatch_1 = require("../../utils/tryCatch");
 const UserService = __importStar(require("./user.service"));
-const _handleFetchUsers = (0, tryCatch_1.tryCatch)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const user_middleware_1 = require("./user.middleware");
+const http_status_codes_1 = require("http-status-codes");
+const _handleFetchUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield UserService.fetchUsers();
-    res.status(200).json(user);
-}));
-const _handleCreateUser = (req, res) => {
-    res.status(200).json('create User');
-};
+    res.status(http_status_codes_1.StatusCodes.OK).json(user);
+});
+const _handleCreateUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user = yield UserService.createUser(req.body);
+    res.status(http_status_codes_1.StatusCodes.CREATED).json(user);
+});
 exports.handleFetchUsers = [
-    _handleFetchUsers
+    (0, tryCatch_1.tryCatch)(_handleFetchUsers)
 ];
 exports.handleCreateUser = [
-    _handleCreateUser
+    user_middleware_1.validateUserCreateParam,
+    (0, tryCatch_1.tryCatch)(_handleCreateUser)
 ];
